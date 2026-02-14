@@ -20,3 +20,18 @@ convertToPDFButton?.addEventListener("click", async () => {
   element.innerHTML = await marked(markdownInput.value);
   html2pdf().from(element).save("output.pdf");
 });
+
+const convertToHTMLButton = document.getElementById("convertToHTMLButton");
+const a = document.createElement("a");
+a.download = "output.html";
+
+convertToHTMLButton?.addEventListener("click", async () => {
+  const html = await marked(markdownInput.value);
+
+  const url = URL.createObjectURL(new Blob([html], { type: "text/html" }));
+
+  a.href = url;
+  a.click();
+
+  URL.revokeObjectURL(url);
+});
