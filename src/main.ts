@@ -3,6 +3,10 @@ import { marked } from "marked";
 import html2pdf from "html2pdf.js";
 import html2canvas from "html2canvas";
 
+function createFileDownloadURL(data: string, type: string) {
+  return URL.createObjectURL(new Blob([data], { type }));
+}
+
 const a = document.createElement("a");
 
 function download(filename: string, url: string) {
@@ -17,6 +21,16 @@ const markdownInput = document.getElementById(
 
 function getHTMLMarkdown() {
   return marked(markdownInput.value);
+}
+
+function markdownTableToCSV(markdown: string) {
+  const lines = markdown.trim().split("\n");
+  const dataLines = lines.filter((line) => !/^(\s*\|?\s*-+.*)+$/.test(line));
+  const csvDataLines = dataLines.map((line) => {
+    const cells = line.replace(/^\s*\||\|\s*$/g, "").split("|");
+    return cells.map((cell) => cell.trim()).join(",");
+  });
+  return csvDataLines.join("\n");
 }
 
 const convertToWordButton = document.getElementById("convertToWordButton");
@@ -38,12 +52,7 @@ const convertToHTMLButton = document.getElementById("convertToHTMLButton");
 
 convertToHTMLButton?.addEventListener("click", async () => {
   const html = await getHTMLMarkdown();
-
-  const url = URL.createObjectURL(new Blob([html], { type: "text/html" }));
-
-  download("output.html", url);
-
-  URL.revokeObjectURL(url);
+  download("output.html", createFileDownloadURL(html, "text/html"));
 });
 
 const hiddenDiv = document.getElementById("hiddenRender");
@@ -68,7 +77,12 @@ convertToTextButton?.addEventListener("click", async () => {
   const html = await getHTMLMarkdown();
   const text = html.replace(/<[^>]*>?/gm, "");
 
-  const blob = new Blob([text], { type: "text/plain" });
+  download("output.txt", createFileDownloadURL(text, "text/plain"));
+});
 
-  download("output.txt", URL.createObjectURL(blob));
+const convertToCSVButton = document.getElementById("convertToCSVButton");
+
+convertToCSVButton?.addEventListener("click", () => {
+  const csv = markdownTableToCSV(markdownInput.value);
+  download("output.csv", createFileDownloadURL(csv, "text/csv"));
 });
