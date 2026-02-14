@@ -4,6 +4,7 @@ import html2pdf from "html2pdf.js";
 import html2canvas from "html2canvas";
 import { remark } from "remark";
 import remarkParse from "remark-parse";
+import MarkdownIt from "markdown-it";
 
 function createFileDownloadURL(data: string, type: string) {
   return URL.createObjectURL(new Blob([data], { type }));
@@ -95,4 +96,26 @@ const processor = remark().use(remarkParse);
 convertToJSONButton?.addEventListener("click", () => {
   const json = JSON.stringify(processor.parse(markdownInput.value), null, 2);
   download("output.json", createFileDownloadURL(json, "application/json"));
+});
+
+const convertToLaTeXButton = document.getElementById("convertToLaTeXButton");
+const md = new MarkdownIt();
+
+md.renderer.rules.paragraph_open = () => "";
+md.renderer.rules.paragraph_close = () => "\n\n";
+md.renderer.rules.em_open = () => "\\textit{";
+md.renderer.rules.em_close = () => "}";
+md.renderer.rules.strong_open = () => "\\textbf{";
+md.renderer.rules.strong_close = () => "}";
+md.renderer.rules.bullet_list_open = () => "\\begin{itemize}\n";
+md.renderer.rules.bullet_list_close = () => "\\end{itemize}\n";
+md.renderer.rules.list_item_open = () => "\\item ";
+md.renderer.rules.list_item_close = () => "\n";
+
+convertToLaTeXButton?.addEventListener("click", () => {
+  let latex = "";
+  for (const token of md.parse(markdownInput.value, {})) {
+    latex += md.renderer.render([token], md.options, {});
+  }
+  download("output.tex", createFileDownloadURL(latex, "text/plain"));
 });
