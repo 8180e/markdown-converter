@@ -1,6 +1,9 @@
 import { convertMarkdownToDocx, downloadDocx } from "@mohtasham/md-to-docx";
 import { marked } from "marked";
 import html2pdf from "html2pdf.js";
+import html2canvas from "html2canvas";
+
+const a = document.createElement("a");
 
 const markdownInput = document.getElementById(
   "markdownInput",
@@ -22,16 +25,33 @@ convertToPDFButton?.addEventListener("click", async () => {
 });
 
 const convertToHTMLButton = document.getElementById("convertToHTMLButton");
-const a = document.createElement("a");
-a.download = "output.html";
 
 convertToHTMLButton?.addEventListener("click", async () => {
   const html = await marked(markdownInput.value);
 
   const url = URL.createObjectURL(new Blob([html], { type: "text/html" }));
 
+  a.download = "output.html";
   a.href = url;
   a.click();
 
   URL.revokeObjectURL(url);
 });
+
+const hiddenDiv = document.getElementById("hiddenRender");
+
+if (hiddenDiv) {
+  const convertToImageButton = document.getElementById("convertToImageButton");
+
+  convertToImageButton?.addEventListener("click", async () => {
+    hiddenDiv.innerHTML = await marked(markdownInput.value);
+    hiddenDiv.style.display = "block";
+
+    const canvas = await html2canvas(hiddenDiv, { backgroundColor: "#ffffff" });
+    hiddenDiv.style.display = "none";
+
+    a.download = "output.png";
+    a.href = canvas.toDataURL("image/png");
+    a.click();
+  });
+}

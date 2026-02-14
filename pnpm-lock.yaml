@@ -11,6 +11,9 @@ importers:
       '@mohtasham/md-to-docx':
         specifier: ^2.6.1
         version: 2.6.1
+      html2canvas:
+        specifier: ^1.4.1
+        version: 1.4.1
       html2pdf.js:
         specifier: ^0.14.0
         version: 0.14.0
