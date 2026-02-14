@@ -183,3 +183,17 @@ onButtonClick("convertToBBCodeButton", () => {
   const bbcode = markdownToBBCode(markdownInput.value);
   download("output.bbcode", createFileDownloadURL(bbcode, "text/plain"));
 });
+
+const markdownFileInput = document.getElementById(
+  "markdownFileInput",
+) as HTMLInputElement;
+
+markdownFileInput.addEventListener("change", () => {
+  if (!markdownFileInput.files) return;
+
+  const reader = new FileReader();
+  reader.onload = ({ target }) => {
+    if (typeof target?.result === "string") markdownInput.value = target.result;
+  };
+  reader.readAsText(markdownFileInput.files[0]);
+});
