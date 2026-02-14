@@ -6,9 +6,15 @@ import { remark } from "remark";
 import remarkParse from "remark-parse";
 import MarkdownIt from "markdown-it";
 import htmlToRtf from "html-to-rtf";
+import PptxGenJS from "pptxgenjs";
 
 function createFileDownloadURL(data: string, type: string) {
   return URL.createObjectURL(new Blob([data], { type }));
+}
+
+function parseMarkdownToSlides(md: string) {
+  const slides = md.split(/\n---\n/);
+  return slides.map((slide) => slide.replace(/^#\s+/gm, "").trim());
 }
 
 const a = document.createElement("a");
@@ -126,4 +132,16 @@ const convertToRTFButton = document.getElementById("convertToRTFButton");
 convertToRTFButton?.addEventListener("click", async () => {
   const rtf = htmlToRtf.convertHtmlToRtf(await getHTMLMarkdown());
   download("output.rtf", createFileDownloadURL(rtf, "application/rtf"));
+});
+
+const convertToPPTXButton = document.getElementById("convertToPPTXButton");
+
+convertToPPTXButton?.addEventListener("click", () => {
+  const pptx = new PptxGenJS();
+  parseMarkdownToSlides(markdownInput.value).forEach((content) => {
+    const slide = pptx.addSlide();
+    slide.addText(content, { x: 0.5, y: 0.5, w: 9, h: 5, fontSize: 24 });
+  });
+
+  pptx.writeFile({ fileName: "output.pptx" });
 });
