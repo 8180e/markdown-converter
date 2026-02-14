@@ -1,3 +1,4 @@
+import "./load-theme";
 import { convertMarkdownToDocx, downloadDocx } from "@mohtasham/md-to-docx";
 import { marked } from "marked";
 import html2pdf from "html2pdf.js";

@@ -3,25 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>markdown-converter</title>
+    <title>Markdown Converter</title>
   </head>
   <body>
-    <textarea id="markdownInput"></textarea
-    ><input id="markdownFileInput" type="file" /><button
-      id="convertToWordButton"
-    >
-      Convert to Word</button
-    ><button id="convertToPDFButton">Convert to PDF</button
-    ><button id="convertToHTMLButton">Convert to HTML</button
-    ><button id="convertToImageButton">Convert to Image</button
-    ><button id="convertToTextButton">Convert to Text</button
-    ><button id="convertToCSVButton">Convert to CSV</button
-    ><button id="convertToJSONButton">Convert to JSON</button
-    ><button id="convertToLaTeXButton">Convert to LaTeX</button
-    ><button id="convertToRTFButton">Convert to RTF</button
-    ><button id="convertToPPTXButton">Convert to PPTX</button
-    ><button id="convertToBBCodeButton">Convert to BBCode</button>
+    <main class="light">
+      <div class="container">
+        <h1 class="header">Markdown Converter</h1>
+        <button id="themeToggle">Toggle Theme</button>
+        <textarea
+          id="markdownInput"
+          placeholder="Paste your markdown here..."
+        ></textarea>
+        <input id="markdownFileInput" type="file" />
+
+        <div class="button-grid">
+          <button id="convertToWordButton" data-tooltip="Export as Word">
+            Word
+          </button>
+
+          <button id="convertToPDFButton" data-tooltip="Export as PDF">
+            PDF
+          </button>
+
+          <button id="convertToHTMLButton" data-tooltip="Export as HTML">
+            HTML
+          </button>
+
+          <button id="convertToImageButton" data-tooltip="Export as Image">
+            Image
+          </button>
+
+          <button id="convertToTextButton" data-tooltip="Export as Text">
+            Text
+          </button>
+
+          <button id="convertToCSVButton" data-tooltip="Export as CSV">
+            CSV
+          </button>
+
+          <button id="convertToJSONButton" data-tooltip="Export as JSON">
+            JSON
+          </button>
+
+          <button id="convertToLaTeXButton" data-tooltip="Export as LaTeX">
+            LaTeX
+          </button>
+
+          <button id="convertToRTFButton" data-tooltip="Export as RTF">
+            RTF
+          </button>
+
+          <button id="convertToPPTXButton" data-tooltip="Export as PPTX">
+            PPTX
+          </button>
+
+          <button id="convertToBBCodeButton" data-tooltip="Export as BBCode">
+            BBCode
+          </button>
+        </div>
+        <div id="test"></div>
+      </div>
+    </main>
     <div id="hiddenRender" style="display: none"></div>
     <script type="module" src="src/main.ts"></script>
   </body>
