@@ -5,6 +5,7 @@ import html2canvas from "html2canvas";
 import { remark } from "remark";
 import remarkParse from "remark-parse";
 import MarkdownIt from "markdown-it";
+import htmlToRtf from "html-to-rtf";
 
 function createFileDownloadURL(data: string, type: string) {
   return URL.createObjectURL(new Blob([data], { type }));
@@ -118,4 +119,11 @@ convertToLaTeXButton?.addEventListener("click", () => {
     latex += md.renderer.render([token], md.options, {});
   }
   download("output.tex", createFileDownloadURL(latex, "text/plain"));
+});
+
+const convertToRTFButton = document.getElementById("convertToRTFButton");
+
+convertToRTFButton?.addEventListener("click", async () => {
+  const rtf = htmlToRtf.convertHtmlToRtf(await getHTMLMarkdown());
+  download("output.rtf", createFileDownloadURL(rtf, "application/rtf"));
 });

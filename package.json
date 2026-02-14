@@ -9,12 +9,14 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/html-to-rtf": "^1.3.2",
     "@types/markdown-it": "^14.1.2",
     "typescript": "~5.9.3",
     "vite": "^7.3.1"
   },
   "dependencies": {
     "@mohtasham/md-to-docx": "^2.6.1",
+    "html-to-rtf": "^2.1.0",
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.14.0",
     "markdown-it": "^14.1.1",
