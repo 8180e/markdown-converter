@@ -8,6 +8,10 @@ import MarkdownIt from "markdown-it";
 import htmlToRtf from "html-to-rtf";
 import PptxGenJS from "pptxgenjs";
 
+function onButtonClick(elementId: string, listener: () => unknown) {
+  document.getElementById(elementId)?.addEventListener("click", listener);
+}
+
 function createFileDownloadURL(data: string, type: string) {
   return URL.createObjectURL(new Blob([data], { type }));
 }
@@ -43,24 +47,19 @@ function markdownTableToCSV(markdown: string) {
   return csvDataLines.join("\n");
 }
 
-const convertToWordButton = document.getElementById("convertToWordButton");
-
-convertToWordButton?.addEventListener("click", async () => {
+onButtonClick("convertToWordButton", async () => {
   const blob = await convertMarkdownToDocx(markdownInput.value);
   downloadDocx(blob, "output.docx");
 });
 
-const convertToPDFButton = document.getElementById("convertToPDFButton");
 const element = document.createElement("div");
 
-convertToPDFButton?.addEventListener("click", async () => {
+onButtonClick("convertToPDFButton", async () => {
   element.innerHTML = await getHTMLMarkdown();
   html2pdf().from(element).save("output.pdf");
 });
 
-const convertToHTMLButton = document.getElementById("convertToHTMLButton");
-
-convertToHTMLButton?.addEventListener("click", async () => {
+onButtonClick("convertToHTMLButton", async () => {
   const html = await getHTMLMarkdown();
   download("output.html", createFileDownloadURL(html, "text/html"));
 });
@@ -68,9 +67,7 @@ convertToHTMLButton?.addEventListener("click", async () => {
 const hiddenDiv = document.getElementById("hiddenRender");
 
 if (hiddenDiv) {
-  const convertToImageButton = document.getElementById("convertToImageButton");
-
-  convertToImageButton?.addEventListener("click", async () => {
+  onButtonClick("convertToImageButton", async () => {
     hiddenDiv.innerHTML = await getHTMLMarkdown();
     hiddenDiv.style.display = "block";
 
@@ -81,31 +78,25 @@ if (hiddenDiv) {
   });
 }
 
-const convertToTextButton = document.getElementById("convertToTextButton");
-
-convertToTextButton?.addEventListener("click", async () => {
+onButtonClick("convertToTextButton", async () => {
   const html = await getHTMLMarkdown();
   const text = html.replace(/<[^>]*>?/gm, "");
 
   download("output.txt", createFileDownloadURL(text, "text/plain"));
 });
 
-const convertToCSVButton = document.getElementById("convertToCSVButton");
-
-convertToCSVButton?.addEventListener("click", () => {
+onButtonClick("convertToCSVButton", () => {
   const csv = markdownTableToCSV(markdownInput.value);
   download("output.csv", createFileDownloadURL(csv, "text/csv"));
 });
 
-const convertToJSONButton = document.getElementById("convertToJSONButton");
 const processor = remark().use(remarkParse);
 
-convertToJSONButton?.addEventListener("click", () => {
+onButtonClick("convertToJSONButton", () => {
   const json = JSON.stringify(processor.parse(markdownInput.value), null, 2);
   download("output.json", createFileDownloadURL(json, "application/json"));
 });
 
-const convertToLaTeXButton = document.getElementById("convertToLaTeXButton");
 const md = new MarkdownIt();
 
 md.renderer.rules.paragraph_open = () => "";
@@ -119,7 +110,7 @@ md.renderer.rules.bullet_list_close = () => "\\end{itemize}\n";
 md.renderer.rules.list_item_open = () => "\\item ";
 md.renderer.rules.list_item_close = () => "\n";
 
-convertToLaTeXButton?.addEventListener("click", () => {
+onButtonClick("convertToLaTeXButton", () => {
   let latex = "";
   for (const token of md.parse(markdownInput.value, {})) {
     latex += md.renderer.render([token], md.options, {});
@@ -127,16 +118,12 @@ convertToLaTeXButton?.addEventListener("click", () => {
   download("output.tex", createFileDownloadURL(latex, "text/plain"));
 });
 
-const convertToRTFButton = document.getElementById("convertToRTFButton");
-
-convertToRTFButton?.addEventListener("click", async () => {
+onButtonClick("convertToRTFButton", async () => {
   const rtf = htmlToRtf.convertHtmlToRtf(await getHTMLMarkdown());
   download("output.rtf", createFileDownloadURL(rtf, "application/rtf"));
 });
 
-const convertToPPTXButton = document.getElementById("convertToPPTXButton");
-
-convertToPPTXButton?.addEventListener("click", () => {
+onButtonClick("convertToPPTXButton", () => {
   const pptx = new PptxGenJS();
   parseMarkdownToSlides(markdownInput.value).forEach((content) => {
     const slide = pptx.addSlide();
