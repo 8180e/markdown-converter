@@ -2,6 +2,8 @@ import { convertMarkdownToDocx, downloadDocx } from "@mohtasham/md-to-docx";
 import { marked } from "marked";
 import html2pdf from "html2pdf.js";
 import html2canvas from "html2canvas";
+import { remark } from "remark";
+import remarkParse from "remark-parse";
 
 function createFileDownloadURL(data: string, type: string) {
   return URL.createObjectURL(new Blob([data], { type }));
@@ -85,4 +87,12 @@ const convertToCSVButton = document.getElementById("convertToCSVButton");
 convertToCSVButton?.addEventListener("click", () => {
   const csv = markdownTableToCSV(markdownInput.value);
   download("output.csv", createFileDownloadURL(csv, "text/csv"));
+});
+
+const convertToJSONButton = document.getElementById("convertToJSONButton");
+const processor = remark().use(remarkParse);
+
+convertToJSONButton?.addEventListener("click", () => {
+  const json = JSON.stringify(processor.parse(markdownInput.value), null, 2);
+  download("output.json", createFileDownloadURL(json, "application/json"));
 });

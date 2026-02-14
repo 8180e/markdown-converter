@@ -20,6 +20,12 @@ importers:
       marked:
         specifier: ^17.0.2
         version: 17.0.2
+      remark:
+        specifier: ^15.0.1
+        version: 15.0.1
+      remark-parse:
+        specifier: ^11.0.0
+        version: 11.0.0
     devDependencies:
       typescript:
         specifier: ~5.9.3

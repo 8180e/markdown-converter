@@ -16,6 +16,8 @@
     "@mohtasham/md-to-docx": "^2.6.1",
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.14.0",
-    "marked": "^17.0.2"
+    "marked": "^17.0.2",
+    "remark": "^15.0.1",
+    "remark-parse": "^11.0.0"
   }
 }
