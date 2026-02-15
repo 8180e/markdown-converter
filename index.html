@@ -3,12 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <script>
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.classList.add(savedTheme);
+    </script>
     <link rel="stylesheet" href="styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Markdown Converter</title>
   </head>
   <body>
-    <main class="light">
+    <main>
       <div class="container">
         <h1 class="header">Markdown Converter</h1>
         <button id="themeToggle">Toggle Theme</button>
@@ -63,7 +67,6 @@
             BBCode
           </button>
         </div>
-        <div id="test"></div>
       </div>
     </main>
     <div id="hiddenRender" style="display: none"></div>

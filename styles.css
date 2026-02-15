@@ -117,7 +117,7 @@ button[data-tooltip]::after {
 }
 
 /* THEMES */
-main.light {
+html.light main {
   --bg-color: #f0f4f8;
   --card-color: #ffffff;
   --text-color: #1f2937;
@@ -128,7 +128,7 @@ main.light {
   --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
-main.dark {
+html.dark main {
   --bg-color: #121212;
   --card-color: #1e1e1e;
   --text-color: #e0e0e0;
