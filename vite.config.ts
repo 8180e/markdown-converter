@@ -6,7 +6,6 @@ export default defineConfig({
     rollupOptions: {
       plugins: [
         visualizer({
-          open: true,
           filename: "stats.html",
           gzipSize: true,
           brotliSize: true,
