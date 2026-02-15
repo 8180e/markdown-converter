@@ -29,6 +29,10 @@ main {
     box-shadow 0.3s;
 }
 
+section {
+  display: contents;
+}
+
 h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -169,6 +173,10 @@ button {
 button:hover {
   background-color: var(--button-hover);
   box-shadow: 0 6px 15px var(--accent-color);
+}
+
+p {
+  margin-top: 20px;
 }
 
 @media (max-width: 600px) {

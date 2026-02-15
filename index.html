@@ -3,70 +3,132 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta
+      name="description"
+      content="Convert Markdown files to Word, PDF, HTML, PNG, TXT, CSV, JSON, LaTeX, RTF, PPTX, or BBCode instantly. Free and easy online tool."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Markdown Converter Online | Export to Word, PDF, HTML, PNG, TXT, CSV,
+      JSON, LaTeX, RTF, PPTX, BBCode
+    </title>
     <script>
       const savedTheme = localStorage.getItem("theme") || "light";
       document.documentElement.classList.add(savedTheme);
     </script>
     <link rel="stylesheet" href="styles.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Markdown Converter</title>
   </head>
   <body>
     <main>
       <div class="container">
-        <h1 class="header">Markdown Converter</h1>
-        <button id="themeToggle">Toggle Theme</button>
-        <textarea
-          id="markdownInput"
-          placeholder="Paste your markdown here..."
-        ></textarea>
-        <input id="markdownFileInput" type="file" />
+        <section aria-label="Markdown Input">
+          <h1 class="header">Markdown Converter</h1>
+          <button id="themeToggle">Toggle Theme</button>
+          <label for="markdownInput">Markdown Input</label>
+          <textarea
+            id="markdownInput"
+            placeholder="Paste your markdown here..."
+          ></textarea>
+          <input id="markdownFileInput" type="file" />
+        </section>
 
-        <div class="button-grid">
-          <button id="convertToWordButton" data-tooltip="Export as Word">
-            Word
-          </button>
+        <section aria-label="Export Options">
+          <h2>Export Options</h2>
+          <div class="button-grid">
+            <button
+              id="convertToWordButton"
+              aria-label="Convert Markdown to Word"
+              data-tooltip="Export as Word"
+            >
+              Word
+            </button>
 
-          <button id="convertToPDFButton" data-tooltip="Export as PDF">
-            PDF
-          </button>
+            <button
+              id="convertToPDFButton"
+              aria-label="Convert Markdown to PDF"
+              data-tooltip="Export as PDF"
+            >
+              PDF
+            </button>
 
-          <button id="convertToHTMLButton" data-tooltip="Export as HTML">
-            HTML
-          </button>
+            <button
+              id="convertToHTMLButton"
+              aria-label="Convert Markdown to HTML"
+              data-tooltip="Export as HTML"
+            >
+              HTML
+            </button>
 
-          <button id="convertToPNGButton" data-tooltip="Export as PNG">
-            PNG
-          </button>
+            <button
+              id="convertToPNGButton"
+              aria-label="Convert Markdown to PNG"
+              data-tooltip="Export as PNG"
+            >
+              PNG
+            </button>
 
-          <button id="convertToTXTButton" data-tooltip="Export as TXT">
-            TXT
-          </button>
+            <button
+              id="convertToTXTButton"
+              aria-label="Convert Markdown to TXT"
+              data-tooltip="Export as TXT"
+            >
+              TXT
+            </button>
 
-          <button id="convertToCSVButton" data-tooltip="Export as CSV">
-            CSV
-          </button>
+            <button
+              id="convertToCSVButton"
+              aria-label="Convert Markdown to CSV"
+              data-tooltip="Export as CSV"
+            >
+              CSV
+            </button>
 
-          <button id="convertToJSONButton" data-tooltip="Export as JSON">
-            JSON
-          </button>
+            <button
+              id="convertToJSONButton"
+              aria-label="Convert Markdown to JSON"
+              data-tooltip="Export as JSON"
+            >
+              JSON
+            </button>
 
-          <button id="convertToLaTeXButton" data-tooltip="Export as LaTeX">
-            LaTeX
-          </button>
+            <button
+              id="convertToLaTeXButton"
+              aria-label="Convert Markdown to LaTeX"
+              data-tooltip="Export as LaTeX"
+            >
+              LaTeX
+            </button>
 
-          <button id="convertToRTFButton" data-tooltip="Export as RTF">
-            RTF
-          </button>
+            <button
+              id="convertToRTFButton"
+              aria-label="Convert Markdown to RTF"
+              data-tooltip="Export as RTF"
+            >
+              RTF
+            </button>
 
-          <button id="convertToPPTXButton" data-tooltip="Export as PPTX">
-            PPTX
-          </button>
+            <button
+              id="convertToPPTXButton"
+              aria-label="Convert Markdown to PPTX"
+              data-tooltip="Export as PPTX"
+            >
+              PPTX
+            </button>
 
-          <button id="convertToBBCodeButton" data-tooltip="Export as BBCode">
-            BBCode
-          </button>
-        </div>
+            <button
+              id="convertToBBCodeButton"
+              aria-label="Convert Markdown to BBCode"
+              data-tooltip="Export as BBCode"
+            >
+              BBCode
+            </button>
+          </div>
+        </section>
+        <p>
+          Our Markdown Converter allows you to quickly convert your Markdown
+          files to Word, PDF, HTML, and many other formats. No registration
+          required!
+        </p>
       </div>
     </main>
     <div id="hiddenRender" style="display: none"></div>
